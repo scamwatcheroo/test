@@ -1655,7 +1655,7 @@ function injectPopup()
 
 	// First add the stylesheet	to the head of the document
 	var c =document.createElement("link");
-	c.rel = "stylesheet";	c.media = "all"; c.href = "http://rundevil.x10host.com/mapstogpxstravapopup.css"; c.type = "text/css";
+	c.rel = "stylesheet";	c.media = "all"; c.href = "https://raw.githubusercontent.com/scamwatcheroo/test/master/mapstogpxstravapopup.css"; c.type = "text/css";
 	document.getElementsByTagName("head")[0].appendChild(c);
 	
 	// Now store and inject the html
