@@ -1,0 +1,242 @@
+#mapstogpxstrava_popup {
+  transform: scale(0.8);
+}
+.popup_visible #mapstogpxstrava_popup {
+  transform: scale(1);
+}
+
+#mapstogpxstrava_popup {
+	display:none;
+  position: absolute;
+  padding: 10px;
+  width: 650px;
+  cursor: pointer;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 20px 0 20px 0;
+  -webkit-border-radius: 20px;
+  border-radius: 20px 0 20px 0;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMDQ3MjEiIHkxPSItMC4wMzk2MTQiIHgyPSIwLjk1Mjc5IiB5Mj0iMS4wMzk2MTQiPjxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNlODZjOGQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -moz-linear-gradient(310deg, #dadada 50%, #E3464A 50%);
+  background-image: -webkit-linear-gradient(310deg, #dadada 50%, #E3464A 50%);
+  background-image: linear-gradient(140deg, #dadada 50%, #E3464A 50%);
+}
+#mapstogpxstrava_popup:before {
+  content: ''; !important;
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  width: 90%;
+  height: 90%;
+  -moz-border-radius: inherit;
+  -webkit-border-radius: inherit;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.1);
+  -moz-transform: translateZ(-100px);
+  -ms-transform: translateZ(-100px);
+  -webkit-transform: translateZ(-100px);
+  transform: translateZ(-100px);
+}
+
+.mapstogpxstrava_popup-content {
+  padding: 5px; !important;
+  background: #444;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 10px 0 10px 0;
+  -webkit-border-radius: 10px;
+  border-radius: 10px 0 10px 0;
+}
+
+.mapstogpxstrava_popup-text {
+  color: white; !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 100;
+  text-align: center;
+  -moz-transform: translateZ(15px);
+  -ms-transform: translateZ(15px);
+  -webkit-transform: translateZ(15px);
+  transform: translateZ(15px);
+  /** Buttons **/
+  /** Button hover animation **/
+}
+.mapstogpxstrava_popup-text b {
+  color: #E3464A; !important;
+  font-weight: 300;
+}
+.mapstogpxstrava_popup-text p {
+  margin: 20px; !important;
+}
+.mapstogpxstrava_popup-text div.button {
+	height: 30px; !important;
+  margin-top: 10px;
+  padding: 5px 23px;
+  border: 1px solid #666;
+  background-color: #666;
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.mapstogpxstrava_popup-text div.default {
+  border: 1px solid #E3464A; !important;
+  background-color: #E3464A;
+}
+.mapstogpxstrava_popup-text div.button.line span.animator {
+  width: 300px; !important;
+  height: 100%;
+  position: absolute;
+  background-color: #fff;
+  top: 0;
+  left: -10px;
+  transition: all 0.5s;
+  transform: skewX(-20deg);
+  z-index: 5;
+}
+.mapstogpxstrava_popup-text div.button.line span.content {
+  transition: all 0.4s; !important;
+  position: relative;
+  z-index: 10;
+}
+.mapstogpxstrava_popup-text div.button.line span.animator {
+  transform: translateX(-300px) skewX(-20deg); !important;
+}
+.mapstogpxstrava_popup-text div.button.line:hover {
+  cursor: pointer; !important;
+}
+.mapstogpxstrava_popup-text div.button.line:hover span.animator {
+  transform: translateX(0) skewX(-20deg); !important;
+}
+.mapstogpxstrava_popup-text div.button.line:hover span.content {
+  color: #E3464A; !important;
+}
+
+.mapstogpxstrava_popup-text p.header {
+  font-size: 1.3em; !important;
+}
+
+.mapstogpxstrava_popup-text b, .mapstogpxstrava_popup-text span{
+  vertical-align: top; !important;
+}
+
+#mapstogpxstrava_popup .input[type=text]:focus {
+  outline: none; !important;
+  outline: 2px solid #E3464A;
+  box-shadow: 0 0 2px #E3464A;
+}
+
+#mapstogpxstrava_popup input{
+  margin: 0px;
+  vertical-align:auto;
+  display:inline-block;
+}
+#mapstogpxstrava_popup .input[type=text] {
+  color: #444;
+  padding: 0px;
+  font-size: inherit; !important;
+  background: #dadada;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  text-indent: 3%;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  height: 35px;
+  border: none;
+}
+
+#mapstogpxstrava_popup ::-webkit-input-placeholder {
+   color: #444; !important;
+}
+#mapstogpxstrava_popup :-moz-placeholder { /* Firefox 18- */
+   color: #444;   !important;
+}
+#mapstogpxstrava_popup ::-moz-placeholder {  /* Firefox 19+ */
+   color: #444;   !important;
+}
+#mapstogpxstrava_popup :-ms-input-placeholder {  
+   color: #444;   !important;
+}
+
+#mapstogpxstrava_popup .input_radio, .mapstogpxstrava_popup .input_check {
+  visibility: hidden; !important;
+}
+
+#mapstogpxstrava_popup em.small {
+  padding: 0; margin: 0; !important;
+  display: flex;
+  font-size: 0.6em;
+  font-style: italic;
+  line-height: 6px;
+}
+
+#mapstogpxstrava_popup .radio_label {
+  color: white;
+  clear: none;
+  margin: 0px;
+  cursor: pointer; !important;
+  text-indent: 35px;
+  text-align: left;
+  overflow: visible;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 15px;
+  padding-top: 0px;
+  /*width: 150px;*/
+}
+
+#mapstogpxstrava_popup .radio_label:before {
+  background: #E3464A; !important;
+  content: ''; !important;
+  position: absolute; !important;
+  top: 2px;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+}
+
+#mapstogpxstrava_popup .radio_label:after {
+  opacity: 0; !important;
+  content: '';
+  position: absolute;
+  width: 0.6em;
+  height: 0.3em;
+  background: transparent;
+  top: 7.5px;
+  left: 4.5px;
+  border: 3px solid #ffffff;
+  border-top: none;
+  border-right: none;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#mapstogpxstrava_popup .input_radio:checked + label:after {
+  opacity: 1; !important;
+}
+
+#mapstogpxstrava_popup .input_radio:checked + label:after {
+  opacity: 1; !important;
+}
+
+#mapstogpxstrava_popup #routeName{
+  width: 350px; !important;
+}

@@ -1500,13 +1500,27 @@ function stravaDataSuccess( data, gpxDetails, routeName )
 		//console.log( "trackName: "+trackName);
 		
 		var athleteName = jQuery("header > h1 > span.title > a").text();
+		
+		// Scam Watcheroo fix of the upper case spelling of names
+		athleteName = athleteName.replace(/\b[a-z]/g, function(letter) {
+			return letter.toUpperCase();
+		});		
 		//console.log( "athleteName: "+athleteName);
 		
 		// The full url for the current window
-		var url = window.location.href;
+		var url = window.location.href;		
 		
-		// create a formatted date  Y-m-d\TH:i:s\Z
-		var dateNow =	moment();
+		// Scam Watcheroo fix of the times used in the GPX file to start from the date string shown on the page
+		// instead of the wrong time this script originally used, which was simply just a week ago no matter the real time stamp.
+		// Strava strips out all date time information from the data streams, which is why this fix is needed.
+		var dstr = jQuery("#heading > div > div > div.spans8.activity-summary.mt-md.mb-md > div > time").text();
+
+		var firstSplit = dstr.split(', ')
+		var secondSplit = firstSplit[0].split(' on ')
+		var realDT = firstSplit[1].replace(/^\s/gi, '').replace(/$\s/gi, '') + ', ' + firstSplit[2].replace(/[\s]/gi, '') + ' ' + secondSplit[0].replace(/^\s/gi, '').replace(/$\s/gi, '') 	
+		var dateNow = moment(realDT);
+		dateNow.subtract(2, 'hours');	// timezone fix	
+		//dateNow.format('YYYY-MM-DD[T]HH:mm:ss[Z]')
 				
 		// Extract the available data point sets
 		var timeData = 'time' in data ? data['time'] : null;
@@ -1523,7 +1537,6 @@ function stravaDataSuccess( data, gpxDetails, routeName )
 		// Moment mutates each instance so I must be careful of cloning the time instances before 
 		// modifying them (jesus this is a stupid design)
 		var weekAgo = dateNow.clone();
-		weekAgo.subtract(7, 'd');
 		
 		jQuery.each( data['latlng'], function( key, val ) 
 		{
@@ -1559,7 +1572,7 @@ function stravaDataSuccess( data, gpxDetails, routeName )
 			}
 			
 			// Construct EXTENSIONS for the full package
-			if( gpxDetails == "full" )
+			//if( gpxDetails == "full" )
 			{
 				// Now construct the extension section if needed
 				if( hrData != null || cadData != null || powData != null || tempData != null )
@@ -1619,7 +1632,7 @@ function stravaDataSuccess( data, gpxDetails, routeName )
 				gpxContents += "</gpx>\n";
 		
 		var blob = new Blob([gpxContents], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, "strava_"+gpxDetails+".gpx");
+		saveAs(blob, dateNow.format('YYYY-MM-DD[T]HH_mm_ss[Z]') + " - " + athleteName + ".gpx");
 	}
 	catch( err )
 	{
@@ -1642,7 +1655,7 @@ function injectPopup()
 
 	// First add the stylesheet	to the head of the document
 	var c =document.createElement("link");
-	c.rel = "stylesheet";	c.media = "all"; c.href = "https://mapstogpx.com/strava/mapstogpxstravapopup.css"; c.type = "text/css";
+	c.rel = "stylesheet";	c.media = "all"; c.href = "http://rundevil.x10host.com/mapstogpxstravapopup.css"; c.type = "text/css";
 	document.getElementsByTagName("head")[0].appendChild(c);
 	
 	// Now store and inject the html
@@ -1651,16 +1664,16 @@ function injectPopup()
 	html += '  <div class="mapstogpxstrava_popup-content">';
 	html += '    <div class="mapstogpxstrava_popup-text">';
 	html += '      <p class="header">';
-	html += '        Configure the <b>GPX</b> output file';
+	html += '        Click to Download Full <b>GPX</b> File';
 	html += '      </p>';
 	html += '      <p>';
 	html += '        <b>GPX details</b> <span>:</span>';
-	html += '        <input class="input_radio" type="radio" value="None" id="outputType1" name="outputType" checked />';
-	html += '        <label for="outputType1" class="radio_label" title="">Minimal<em class="small">lat/lng,altitude</em></label>';
-	html += '        <input class="input_radio" type="radio" value="None" id="outputType2" name="outputType" />';
-	html += '        <label for="outputType2" class="radio_label" title="">Default<em class="small">+time,names</em></label>';
-	html += '        <input class="input_radio" type="radio" value="None" id="outputType3" name="outputType" />';
-	html += '        <label for="outputType3" class="radio_label" title="">Full<em class="small">+extensions</em></label>';
+	//html += '        <input class="input_radio" type="radio" value="None" id="outputType3" name="outputType" />';
+	//html += '        <label for="outputType3" class="radio_label" title="">Full<em class="small">+extensions</em></label>';	
+	//html += '        <input class="input_radio" type="radio" value="None" id="outputType1" name="outputType" checked />';
+	//html += '        <label for="outputType1" class="radio_label" title="">Minimal<em class="small">lat/lng,altitude</em></label>';
+	//html += '        <input class="input_radio" type="radio" value="None" id="outputType2" name="outputType" />';
+	//html += '        <label for="outputType2" class="radio_label" title="">Default<em class="small">+time,names</em></label>';
 	html += '      <br>';
 	html += '        <b>Route</b> <span>:</span>';
 	html += '        <input class="input" type="text" id="routeName" name="routeName" placeholder="Override route name...">';
@@ -1695,7 +1708,7 @@ function injectPopup()
 	jQuery('#mapstogpxstrava_popup_creategpx').click(function (e) 
 	{
 			// Collect the settings and pass to the create method
-			var gpxDetails = jQuery('input#outputType1').is(':checked') ? "min": jQuery('input#outputType2').is(':checked') ? "default": "full";
+			var gpxDetails = "full";
 			var routeName = jQuery('input#routeName').val();				
 			getGpx_Core(gpxDetails, routeName);
 			jQuery('#mapstogpxstrava_popup').popup('hide');
